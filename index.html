@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Générateur de mots de passe aléatoires et sécurisés, directement dans le navigateur. Aucune donnée envoyée.">
+  <title>Générateur de mot de passe</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Générateur de mot de passe</h1>
+    <p class="subtitle">Un clic pour générer, un clic pour copier. Tout se passe dans votre navigateur.</p>
+
+    <section class="card" aria-label="Générateur">
+      <output id="password" class="password is-empty" aria-live="polite">Cliquez sur « Générer » pour obtenir un mot de passe.</output>
+
+      <div class="actions">
+        <button id="btn-generate" class="btn-primary" type="button">Générer</button>
+        <button id="btn-copy" class="btn-secondary" type="button" disabled>Copier</button>
+      </div>
+      <p id="status" class="status" role="status"></p>
+
+      <details class="options" id="options">
+        <summary>
+          <span class="options-title">Options</span>
+          <span class="options-summary" id="options-summary"></span>
+        </summary>
+        <div class="options-body">
+          <fieldset>
+            <legend>Longueur</legend>
+            <div id="lengths" class="chips" role="radiogroup" aria-label="Longueurs courantes"></div>
+            <div class="select-row">
+              <label for="length-select">Autre longueur</label>
+              <select id="length-select"></select>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Caractères à inclure</legend>
+            <div class="checks">
+              <label><input type="checkbox" id="opt-lowercase" checked> Minuscules <span class="sample">a-z</span></label>
+              <label><input type="checkbox" id="opt-uppercase" checked> Majuscules <span class="sample">A-Z</span></label>
+              <label><input type="checkbox" id="opt-digits" checked> Chiffres <span class="sample">0-9</span></label>
+              <label class="check-wide"><input type="checkbox" id="opt-symbols" checked> Caractères spéciaux <span class="sample" id="symbols-sample">! @ # $ % ^ &amp; * ( ) - _ = + [ ] { } ; : , . ? /</span></label>
+            </div>
+            <p class="hint">Le mot de passe contient au moins un caractère de chaque type coché.</p>
+            <label class="check-extra"><input type="checkbox" id="opt-exclude-similar" checked> Exclure les caractères similaires <span class="sample">I l 1 O 0 o</span></label>
+          </fieldset>
+        </div>
+      </details>
+    </section>
+
+    <noscript><p class="hint">JavaScript doit être activé pour générer un mot de passe.</p></noscript>
+
+    <footer class="footer">
+      <p>Aucun mot de passe n'est envoyé ni enregistré. Code source sous licence MIT.</p>
+    </footer>
+  </main>
+
+  <script src="assets/js/generator.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
