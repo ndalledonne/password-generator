@@ -64,7 +64,7 @@ jobs:
             exit 1
           fi
           mkdir dist
-          cp -r index.html assets dist/
+          cp -r index.html favicon.ico assets dist/
           lftp --env-password -u "$FTP_USER" "$FTP_HOST" <<EOF
           set cmd:fail-exit true
           set ftp:ssl-force true
