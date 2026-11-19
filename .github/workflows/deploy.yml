@@ -1,0 +1,77 @@
+name: Deploy
+
+# Publishes the site to the Nuxit hosting (password-generator.nicolasdalledonne.fr)
+# every time a version tag (v1.4.0, v2.0.0...) is pushed, once the tests pass.
+#
+# Required repository secrets: FTP_USER, FTP_PASSWORD
+# Optional repository variable: FTP_DIR (remote folder, default "/", which is right
+# for an FTP account restricted to www/password-generator/)
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  test:
+    uses: ./.github/workflows/tests.yml
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      FTP_HOST: ftp.webmo.fr
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      # The FTP server does not send its intermediate certificates, so TLS
+      # verification would fail. Fetch them from the certificate's AIA URLs,
+      # check that the chain leads to a trusted root, and add them to the bundle.
+      - name: Build certificate bundle
+        run: |
+          openssl s_client -starttls ftp -connect "$FTP_HOST:21" -servername "$FTP_HOST" </dev/null 2>/dev/null \
+            | openssl x509 > leaf.pem
+          : > intermediates.pem
+          cert=leaf.pem
+          for i in 1 2 3; do
+            if openssl verify -untrusted intermediates.pem leaf.pem >/dev/null 2>&1; then break; fi
+            url=$(openssl x509 -in "$cert" -noout -ext authorityInfoAccess | sed -n 's/.*CA Issuers - URI:\(http[^ ]*\).*/\1/p' | head -1)
+            [ -n "$url" ] || break
+            curl -fsS "$url" | openssl x509 -inform der -out "issuer$i.pem"
+            cat "issuer$i.pem" >> intermediates.pem
+            cert="issuer$i.pem"
+          done
+          openssl verify -untrusted intermediates.pem leaf.pem
+          cat /etc/ssl/certs/ca-certificates.crt intermediates.pem > "$RUNNER_TEMP/ca-bundle.pem"
+
+      - name: Upload site
+        env:
+          FTP_USER: ${{ secrets.FTP_USER }}
+          LFTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ vars.FTP_DIR || '/' }}
+        run: |
+          if [ -z "$FTP_USER" ] || [ -z "$LFTP_PASSWORD" ]; then
+            echo "::error::Secrets FTP_USER and FTP_PASSWORD are not set."
+            exit 1
+          fi
+          mkdir dist
+          cp -r index.html assets dist/
+          lftp --env-password -u "$FTP_USER" "$FTP_HOST" <<EOF
+          set cmd:fail-exit true
+          set ftp:ssl-force true
+          set ftp:ssl-protect-data true
+          set ssl:verify-certificate true
+          set ssl:ca-file $RUNNER_TEMP/ca-bundle.pem
+          set net:max-retries 2
+          mirror --reverse --verbose --no-perms --parallel=4 dist/ "$FTP_DIR"
+          bye
+          EOF

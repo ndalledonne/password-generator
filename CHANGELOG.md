@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Automatic deployment to the Nuxit hosting (`password-generator.nicolasdalledonne.fr`) over FTPS when a `v*` tag is pushed, after the tests pass.
+
 ### Changed
 
 - Tests now run on Node.js 22 and 24, and Node.js 22 or later is required (Node.js 20 is no longer maintained).
