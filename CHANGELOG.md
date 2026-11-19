@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-11-19
+
 ### Added
 
 - Favicon in every format: `favicon.ico` (16, 32, 48 px) for older browsers and search engines, `apple-touch-icon.png` for iPhone/iPad home screens, 192 and 512 px icons with a web app manifest for Android.
@@ -98,7 +100,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unit tests (Node.js) and GitHub Actions continuous integration.
 - French and English documentation.
 
-[Unreleased]: https://github.com/ndalledonne/password-generator/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/ndalledonne/password-generator/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/ndalledonne/password-generator/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/ndalledonne/password-generator/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/ndalledonne/password-generator/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/ndalledonne/password-generator/compare/v1.1.0...v1.2.0
