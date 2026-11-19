@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- "Extension Chrome" button at the top right of the page, linking to the download section.
+
 ## [1.5.0] - 2026-11-19
 
 ### Added
