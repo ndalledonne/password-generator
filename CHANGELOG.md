@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Favicon in every format: `favicon.ico` (16, 32, 48 px) for older browsers and search engines, `apple-touch-icon.png` for iPhone/iPad home screens, 192 and 512 px icons with a web app manifest for Android.
+- Copy icon inside the password field: one click copies the password, and a check mark confirms it.
+
+### Changed
+
+- "Générer" and "Copier" buttons are now stacked, full width, one under the other.
 
 ## [1.4.0] - 2026-11-19
 

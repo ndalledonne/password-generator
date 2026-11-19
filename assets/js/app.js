@@ -60,6 +60,7 @@
     password: $('password'),
     generate: $('btn-generate'),
     copy: $('btn-copy'),
+    copyIcon: $('btn-copy-icon'),
     status: $('status'),
     presets: $('lengths'),
     select: $('length-select'),
@@ -74,7 +75,8 @@
 
   const state = {
     length: DEFAULT_LENGTH,
-    statusTimer: null
+    statusTimer: null,
+    iconTimer: null
   };
 
   /* ---------- Helpers ---------- */
@@ -215,13 +217,14 @@
     void dom.password.offsetWidth; // restart the animation
     dom.password.classList.add('is-fresh');
     dom.copy.disabled = false;
+    dom.copyIcon.disabled = false;
     setStatus('');
   }
 
   /* ---------- Copy ---------- */
 
   /** Fallback for browsers or pages (plain HTTP) without the Clipboard API. */
-  function legacyCopy(text) {
+  function legacyCopy(text, trigger) {
     const textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.setAttribute('readonly', '');
@@ -236,22 +239,31 @@
       ok = false;
     }
     textarea.remove();
-    dom.copy.focus(); // select() moved the focus: give it back to the button
+    trigger.focus(); // select() moved the focus: give it back to the button
     return ok;
   }
 
-  async function onCopy() {
+  /** Shows a check mark on the copy icon for a moment. */
+  function flashCopyIcon() {
+    clearTimeout(state.iconTimer);
+    dom.copyIcon.classList.add('is-done');
+    state.iconTimer = setTimeout(() => dom.copyIcon.classList.remove('is-done'), STATUS_DELAY);
+  }
+
+  async function onCopy(event) {
     if (!hasPassword()) return;
+    const trigger = event.currentTarget;
     const text = dom.password.textContent;
     let ok;
     try {
       await navigator.clipboard.writeText(text);
       ok = true;
     } catch (err) {
-      ok = legacyCopy(text);
+      ok = legacyCopy(text, trigger);
     }
     if (ok) {
       setStatus(TEXT.copied, { autoClear: true });
+      flashCopyIcon();
     } else {
       setStatus(TEXT.copyFailed, { error: true });
     }
@@ -273,6 +285,7 @@
     dom.options.excludeSimilar.addEventListener('change', updateSummary);
     dom.generate.addEventListener('click', onGenerate);
     dom.copy.addEventListener('click', onCopy);
+    dom.copyIcon.addEventListener('click', onCopy);
   }
 
   init();

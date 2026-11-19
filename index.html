@@ -21,7 +21,13 @@
     <p class="subtitle">Un clic pour générer, un clic pour copier. Tout se passe dans votre navigateur.</p>
 
     <section class="card" aria-label="Générateur">
-      <output id="password" class="password is-empty" aria-live="polite">Cliquez sur « Générer » pour obtenir un mot de passe.</output>
+      <div class="password-field">
+        <output id="password" class="password is-empty" aria-live="polite">Cliquez sur « Générer » pour obtenir un mot de passe.</output>
+        <button id="btn-copy-icon" class="btn-icon" type="button" aria-label="Copier le mot de passe" title="Copier" disabled>
+          <svg class="icon-copy" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+          <svg class="icon-done" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        </button>
+      </div>
 
       <div class="actions">
         <button id="btn-generate" class="btn-primary" type="button">Générer</button>

@@ -109,12 +109,14 @@ h1::before { /* app icon */
 
 /* ---------- Password field ---------- */
 
+.password-field { position: relative; margin: 0 0 16px; }
+
 .password {
   display: flex;
   align-items: center;
   min-height: 76px;
-  margin: 0 0 16px;
-  padding: 16px 18px;
+  margin: 0;
+  padding: 16px 62px 16px 18px; /* room for the copy icon */
   background: var(--field);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -128,7 +130,7 @@ h1::before { /* app icon */
 
 /* ---------- Buttons ---------- */
 
-.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.actions { display: flex; flex-direction: column; gap: 10px; }
 
 button {
   min-height: 46px;
@@ -145,10 +147,33 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   outline-offset: 2px;
 }
 
-.btn-primary { flex: 2 1 200px; background: var(--primary); color: var(--primary-ink); }
+.btn-primary { width: 100%; background: var(--primary); color: var(--primary-ink); }
 .btn-primary:hover:not(:disabled) { background: color-mix(in srgb, var(--primary) 88%, black); }
-.btn-secondary { flex: 1 1 140px; background: var(--surface); color: var(--ink); border-color: var(--line); }
+.btn-secondary { width: 100%; background: var(--surface); color: var(--ink); border-color: var(--line); }
 .btn-secondary:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+
+/* Copy icon inside the password field */
+.btn-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 8px;
+}
+.btn-icon:hover:not(:disabled) { background: var(--primary-soft); color: var(--primary); }
+.btn-icon:disabled { visibility: hidden; }
+.btn-icon .icon-done { display: none; }
+.btn-icon.is-done { color: var(--ok); }
+.btn-icon.is-done .icon-copy { display: none; }
+.btn-icon.is-done .icon-done { display: block; }
 
 .status { min-height: 22px; margin: 10px 0 0; font-size: 14px; color: var(--ok); }
 .status.is-error { color: var(--error); }
