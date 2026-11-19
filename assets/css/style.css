@@ -124,7 +124,7 @@ h1::before { /* app icon */
   word-break: break-all;
   user-select: all;
 }
-.password.is-empty { color: var(--muted); font: 400 15px/1.4 var(--font); user-select: none; }
+.password.is-empty { color: var(--muted); font: 400 15px/1.4 var(--font); word-break: normal; user-select: none; }
 .password.is-fresh { animation: fade .25s ease-out; }
 @keyframes fade { from { opacity: .3; } to { opacity: 1; } }
 
