@@ -5,7 +5,8 @@
   "private": true,
   "main": "assets/js/generator.js",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "build:extension": "node scripts/build-extension.js"
   },
   "keywords": ["password", "generator", "security", "web-crypto"],
   "author": "Nicolas DALLEDONNE",

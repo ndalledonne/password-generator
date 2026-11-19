@@ -14,6 +14,9 @@ Thumbs.db
 *.log
 desktop.ini
 
+# Build output
+dist/
+
 # Environment / coverage
 .env
 .env.*
