@@ -15,6 +15,6 @@
     "url": "https://github.com/ndalledonne/password-generator.git"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   }
 }

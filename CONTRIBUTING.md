@@ -20,7 +20,7 @@ Pour une faille de sécurité, **n'ouvrez pas d'issue publique** : suivez [SECUR
 
 1. Créez un *fork* puis une branche : `git checkout -b fix/description-courte`.
 2. Faites vos modifications.
-3. Lancez les tests : `npm test` (Node.js 20 ou plus).
+3. Lancez les tests : `npm test` (Node.js 22 ou plus).
 4. Ajoutez une ligne, en anglais, dans la section `[Unreleased]` de `CHANGELOG.md`.
 5. Ouvrez une *pull request* qui explique le changement.
 
@@ -50,7 +50,7 @@ For a security vulnerability, **do not open a public issue**: follow [SECURITY.m
 
 1. Fork the repository and create a branch: `git checkout -b fix/short-description`.
 2. Make your changes.
-3. Run the tests: `npm test` (Node.js 20 or later).
+3. Run the tests: `npm test` (Node.js 22 or later).
 4. Add a line under `[Unreleased]` in `CHANGELOG.md`.
 5. Open a *pull request* explaining the change.
 

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Tests now run on Node.js 22 and 24, and Node.js 22 or later is required (Node.js 20 is no longer maintained).
+- GitHub Actions `checkout` and `setup-node` updated to v7 (Node.js 24 runtime), removing the Node.js 20 deprecation warnings.
+
 ## [1.3.0] - 2026-11-19
 
 ### Changed
